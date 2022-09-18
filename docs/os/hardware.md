@@ -1,4 +1,4 @@
-# 2.1 CPU 是如何执行程序的？
+#  CPU 是如何执行程序的？
 
 代码写了那么多，你知道 `a = 1 + 2` 这条代码是怎么被 CPU 执行的吗？
 
@@ -9,7 +9,7 @@ CPU 看了那么多，我们都知道 CPU 通常分为 32 位和 64 位，你知
 不知道也不用慌张，接下来就循序渐进的、一层一层的攻破这些问题。
 
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/程序执行提纲.png)
+![](https://s1.ax1x.com/2022/09/18/x9CLKe.png)
 
 ---
 
@@ -20,7 +20,7 @@ CPU 看了那么多，我们都知道 CPU 通常分为 32 位和 64 位，你知
 图灵机长什么样子呢？你从下图可以看到图灵机的实际样子：
 
 
-![图来源自：http://www.kristergustafsson.me/turing-machine/](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/Turing+machine+1.jpg)
+![](https://s1.ax1x.com/2022/09/18/x9PPxS.jpg)
 
 图灵机的基本组成如下：
 
@@ -35,25 +35,25 @@ CPU 看了那么多，我们都知道 CPU 通常分为 32 位和 64 位，你知
 
 - 首先，用读写头把 「1、2、+」这 3 个字符分别写入到纸带上的 3 个格子，然后读写头先停在 1 字符对应的格子上；
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/图灵机-第一步.png)
+![](https://s1.ax1x.com/2022/09/18/x9PYI1.png)
 
 
 - 接着，读写头读入 1 到存储设备中，这个存储设备称为图灵机的状态；
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/图灵机-第二步.png)
+![](https://s1.ax1x.com/2022/09/18/x9PNPx.png)
 
 - 然后读写头向右移动一个格，用同样的方式把 2 读入到图灵机的状态，于是现在图灵机的状态中存储着两个连续的数字， 1 和 2；
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/图灵机-第三步.png)
+![](https://s1.ax1x.com/2022/09/18/x9PdxO.png)
 
 - 读写头再往右移动一个格，就会碰到 + 号，读写头读到 + 号后，将 + 号传输给「控制单元」，控制单元发现是一个 + 号而不是数字，所以没有存入到状态中，因为 `+` 号是运算符指令，作用是加和目前的状态，于是通知「运算单元」工作。运算单元收到要加和状态中的值的通知后，就会把状态中的 1 和 2 读入并计算，再将计算的结果 3 存放到状态中；
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/图灵机-第四步.png)
+![](https://s1.ax1x.com/2022/09/18/x9PsZd.png)
 
 
 - 最后，运算单元将结果返回给控制单元，控制单元将结果传输给读写头，读写头向右移动，把结果 3 写入到纸带的格子中；
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/图灵机-第五步.png)
+![](https://s1.ax1x.com/2022/09/18/x9P6II.png)
 
 
 通过上面的图灵机计算 `1 + 2`  的过程，可以发现图灵机主要功能就是读取纸带格子中的内容，然后交给控制单元识别字符是数字还是运算符指令，如果是数字则存入到图灵机状态中，如果是运算符，则通知运算单元读取状态中的数值进行计算，计算结果最终返回给读写头，读写头把结果写入到纸带的格子中。
@@ -75,7 +75,7 @@ CPU 看了那么多，我们都知道 CPU 通常分为 32 位和 64 位，你知
 
 存储单元和输入输出设备要与中央处理器打交道的话，离不开总线。所以，它们之间的关系如下图：
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/冯诺依曼模型.png)
+![](https://s1.ax1x.com/2022/09/18/x9PWz8.png)
 
 接下来，分别介绍内存、中央处理器、总线、输入输出设备。
 
@@ -164,7 +164,7 @@ CPU 的位宽最好不要小于线路位宽，比如 32 位 CPU 控制 40 位宽
 
 程序实际上是一条一条指令，所以程序的运行过程就是把每一条指令一步一步的执行起来，负责执行指令的就是 CPU 了。
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/CPU执行程序.png)
+![](https://s1.ax1x.com/2022/09/18/x9iG6S.png)
 
 那 CPU 执行程序的过程如下：
 
@@ -195,7 +195,7 @@ CPU 是不认识 `a = 1 + 2` 这个字符串，这些字符串只是方便我们
 
 注意，数据和指令是分开区域存放的，存放指令区域的地方称为「正文段」。
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/数据段与正文段.png)
+![](https://s1.ax1x.com/2022/09/18/x9idkn.png)
 
 编译器会把 `a = 1 + 2` 翻译成 4 条指令，存放到正文段中。如图，这 4 条指令被存放到了 0x200 ~ 0x20c 的区域中：
 
@@ -218,7 +218,7 @@ CPU 是不认识 `a = 1 + 2` 这个字符串，这些字符串只是方便我们
 
 MIPS 的指令是一个 32 位的整数，高 6 位代表着操作码，表示这条指令是一条什么样的指令，剩下的 26 位不同指令类型所表示的内容也就不相同，主要有三种类型R、I 和 J。
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/MIPS指令集.png)
+![](https://s1.ax1x.com/2022/09/18/x9irlT.png)
 
 一起具体看看这三种类型的含义：
 
@@ -229,7 +229,7 @@ MIPS 的指令是一个 32 位的整数，高 6 位代表着操作码，表示�
 接下来，我们把前面例子的这条指令：「`add` 指令将寄存器 `R0` 和 `R1` 的数据相加，并把结果放入到 `R2`」，翻译成机器码。
 
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/add的MIPS指令.png)
+![](https://s1.ax1x.com/2022/09/18/x9icm4.png)
 
 加和运算 add 指令是属于 R 指令类型：
 
@@ -249,7 +249,7 @@ MIPS 的指令是一个 32 位的整数，高 6 位代表着操作码，表示�
 
 现代大多数 CPU 都使用来流水线的方式来执行指令，所谓的流水线就是把一个任务拆分成多个小任务，于是一条指令通常分为 4 个阶段，称为 4 级流水线，如下图：
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/CPU指令周期.png)
+![](https://s1.ax1x.com/2022/09/18/x9ift1.png)
 
 四个阶段的具体含义：
 
@@ -264,7 +264,7 @@ MIPS 的指令是一个 32 位的整数，高 6 位代表着操作码，表示�
 事实上，不同的阶段其实是由计算机中的不同组件完成的：
 
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/指令周期工作组件.png)
+![](https://s1.ax1x.com/2022/09/18/x9i5p6.png)
 
 - 取指令的阶段，我们的指令是存放在**存储器**里的，实际上，通过程序计数器和指令寄存器取出指令的过程，是由**控制器**操作的；
 - 指令的译码过程，也是由**控制器**进行的；
@@ -297,7 +297,7 @@ CPU 的硬件参数都会有 `GHz` 这个参数，比如一个 1 GHz 的 CPU，�
 程序执行的时候，耗费的 CPU 时间少就说明程序是快的，对于程序的 CPU 执行时间，我们可以拆解成 **CPU 时钟周期数（*CPU Cycles*）和时钟周期时间（*Clock Cycle Time*）的乘积**。
 
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/程序的CPU执行时间公式1.png)
+![](https://s1.ax1x.com/2022/09/18/x9iI1K.png)
 
 时钟周期时间就是我们前面提及的 CPU 主频，主频越高说明 CPU 的工作速度就越快，比如我手头上的电脑的 CPU 是 2.4 GHz 四核 Intel Core i5，这里的 2.4 GHz 就是电脑的主频，时钟周期时间就是 1/2.4G。
 
@@ -309,7 +309,7 @@ CPU 的硬件参数都会有 `GHz` 这个参数，比如一个 1 GHz 的 CPU，�
 对于 CPU 时钟周期数我们可以进一步拆解成：「**指令数 x 每条指令的平均时钟周期数（*Cycles Per Instruction*，简称 `CPI`）**」，于是程序的 CPU 执行时间的公式可变成如下：
 
 
-![](https://cdn.jsdelivr.net/gh/xiaolincoder/ImageHost2/操作系统/程序执行/程序的CPU执行时间公式2.png)
+![](https://s1.ax1x.com/2022/09/18/x9iOAA.png)
 
 
 因此，要想程序跑的更快，优化这三者即可：
